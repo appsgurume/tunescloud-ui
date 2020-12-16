@@ -58,9 +58,10 @@ export default {
             this.alertSpinnerVisibility = false;
             this.audioUrl = "";
 
-            let convertForm = new FormData(document.getElementById("convert_form"));
+            let videoConvertForm = new FormData(document.getElementById("convert_form"));
 
-            axios.post('/v1/video/upload',convertForm).then((response)=>{
+            axios.post('/v1/video/upload',videoConvertForm).then((response)=>{
+
                 let that = this;
                 this.data = response.data;
                 this.alertMessageText = response.data.message;
@@ -68,7 +69,7 @@ export default {
                 this.alertVisibilityError = false;
                 this.alertVisibilitySuccess = true;
                 this.alertSpinnerVisibility = true;
-
+                
 
                 /**
                  * listen to the video convert status

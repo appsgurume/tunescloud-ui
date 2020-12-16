@@ -2,8 +2,8 @@
 
 
  <transition name="fade" mode="out-in">
-    <div class="alert alert-dismissible" v-if="visibility" role="alert">
-        {{messageText}}
+    <div class="alert alert-dismissible align-middle" v-if="visibility" role="alert">
+        {{messageText}} &nbsp;
         <Spinner :visibility="spinnerVisibility"></Spinner>
     </div>
  </transition>
