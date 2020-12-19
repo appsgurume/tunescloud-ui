@@ -1,5 +1,5 @@
 <template>
-    <div class="col-10 mx-auto">
+    <div class="col-12 mx-auto">
 
         <form id="convert_form">
             <div class="input-group input-group-lg mx-auto">
@@ -16,8 +16,10 @@
         </form>
         <Alert  :visibility="alertVisibilityError"  :class="['alert-danger']" v-for="(error, index) in errors"  :key="index" :messageText="error[Object.keys(error)[0]][0]" />
         <Alert  :visibility="alertVisibilitySuccess"  :spinner-visibility="alertSpinnerVisibility" :class="['alert-success']" :messageText="alertMessageText" />
-        <AudioPlayer :visibility="audioPlayerVisibility" :src="audioUrl"></AudioPlayer>
 
+        <div class="row justify-content-center">
+            <AudioCard :visibility="audioCardVisibility" :audio-url="audioUrl" :thumbnail-url="audioCardThumbnailUrl" :title="audioCardTitle"></AudioCard>
+        </div>
     </div>
 
 
@@ -26,15 +28,14 @@
 <script>
 import Alert from "./Alert";
 import Spinner from "./utiles/Spinner";
-import AudioPlayer from "./utiles/AudioPlayer";
-
+import AudioCard from "./AudioCard";
 
 export default {
     name: "VideoConvertor",
     components:{
+        AudioCard,
         Alert,
-        Spinner,
-        AudioPlayer
+        Spinner
     },
     data(){
         return {
@@ -45,8 +46,11 @@ export default {
             buttonSpinnerVisibility: false,
             alertSpinnerVisibility:false,
             alertMessageText: '',
-            audioPlayerVisibility: false,
-            audioUrl:""
+            audioCardVisibility: false,
+            audioUrl:"",
+            audioCardThumbnailUrl:"",
+            audioCardTitle:"",
+            audioCardDescription:""
         }
     },
     methods:{
@@ -54,7 +58,7 @@ export default {
             this.alertVisibilitySuccess = false;
             this.alertVisibilityError = false;
             this.buttonSpinnerVisibility = true;
-            this.audioPlayerVisibility = false;
+            this.audioCardVisibility = false;
             this.alertSpinnerVisibility = false;
             this.audioUrl = "";
 
@@ -69,7 +73,7 @@ export default {
                 this.alertVisibilityError = false;
                 this.alertVisibilitySuccess = true;
                 this.alertSpinnerVisibility = true;
-                
+
 
                 /**
                  * listen to the video convert status
@@ -80,7 +84,10 @@ export default {
                         console.log(response);
                         console.log(response.payload.original.data.audio_url);
                         that.audioUrl = response.payload.original.data.audio_url;
-                        that.audioPlayerVisibility = true;
+                        that.audioCardThumbnailUrl = response.payload.original.data.thumbnail;
+                        that.audioCardTitle = response.payload.original.data.title;
+
+                        that.audioCardVisibility = true;
                         that.alertSpinnerVisibility = false;
                         that.alertMessageText = response.payload.original.message;
                     });

@@ -8,11 +8,11 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter);
 
 import App from './App.vue';
-import VideoConvertor from "./components/common/VideoConvertor";
+import Home from "./components/pages/Home";
 
 
 const routes = [
-    { path: '/', component: VideoConvertor },
+    { path: '/', component: Home },
 ]
 
 const router = new VueRouter({
