@@ -2,6 +2,9 @@
 //window.jQuery = window.$ = jQuery
 
 //window.$ = window.jQuery = require('jquery')
+
+import Promise from 'bluebird';
+
 import Echo from 'laravel-echo';
 
 window._ = require('lodash');
@@ -43,4 +46,5 @@ window.Echo = new Echo({
     // forceTLS: true
 });
 
+window.Helpers = require('./scripts/common/helpers');
 

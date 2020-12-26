@@ -22,7 +22,16 @@ const router = new VueRouter({
 
 new Vue({
     router,
-    render: h => h(App)
+    render: h => h(App),
+    data: {
+        scrolledToBottom: false
+    },
+    methods: {
+
+    },
+    mounted () {
+
+    }
 }).$mount('#app')
 
 

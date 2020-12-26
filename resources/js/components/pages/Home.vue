@@ -1,7 +1,7 @@
 <template>
 <div class="col-12">
-
-    <div class="row mg-5-pr">
+    <Header></Header>
+    <div class="row mg-10-pr">
         <div class="col-10 offset-1">
             <VideoConvertor></VideoConvertor>
         </div>
@@ -15,11 +15,14 @@
 <script>
 import VideoConvertor from "../common/VideoConvertor";
 import AudioCardGrid from "../common/AudioCardGrid";
+import Header from "../layout/Header";
+
 export default {
     name: "Home",
     components:{
         VideoConvertor,
-        AudioCardGrid
+        AudioCardGrid,
+        Header
     }
 }
 </script>

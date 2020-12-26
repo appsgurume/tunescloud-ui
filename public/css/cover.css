@@ -26,8 +26,8 @@ a:hover {
 
 html,
 body {
-    height: 100%;
-    background-color: #2e72a2;
+    /*height: 100%;*/
+    background-color: #17a2b8;
 }
 
 /**
@@ -126,8 +126,13 @@ body {
 }
 
 audio{
-    width:100%;
+
     outline: none;
+    bottom: 3%;
+    position: absolute;
+    left: 3%;
+    right: 3%;
+    width: 94%;
 }
 
 .mg-5-pr{

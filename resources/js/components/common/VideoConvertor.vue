@@ -2,20 +2,26 @@
     <div class="col-12 mx-auto">
 
         <form id="convert_form">
+            <fieldset id="convert_form_fieldset">
             <div class="input-group input-group-lg mx-auto">
                 <input type="text" id="url" name="url" class="form-control" placeholder="https://www.youtube.com/watch?v=KL4mNXuU7-E" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
-            </div>
-            <div class="text-center m-5">
-                <a class="btn btn-lg btn-success" href="#" v-on:click="convertVideo" role="button">
-                    Convert
-                    <Spinner :visibility="buttonSpinnerVisibility"></Spinner>
-                </a>
+                <div class="input-group-append">
+                    <a class="btn btn-lg btn-dark" href="#" v-on:click="convertVideo" role="button">
+                        Convert
+                        <Spinner :visibility="buttonSpinnerVisibility"></Spinner>
+                    </a>
 
+                </div>
             </div>
+            </fieldset>
 
         </form>
-        <Alert  :visibility="alertVisibilityError"  :class="['alert-danger']" v-for="(error, index) in errors"  :key="index" :messageText="error[Object.keys(error)[0]][0]" />
-        <Alert  :visibility="alertVisibilitySuccess"  :spinner-visibility="alertSpinnerVisibility" :class="['alert-success']" :messageText="alertMessageText" />
+
+        <div class="col-12 mt-5">
+            <Alert  :visibility="alertVisibilityError"  :class="['alert-danger']" v-for="(error, index) in errors"  :key="index" :messageText="error[Object.keys(error)[0]][0]" />
+            <Alert  :visibility="alertVisibilitySuccess"  :spinner-visibility="alertSpinnerVisibility" :class="['alert-success']" :messageText="alertMessageText" />
+        </div>
+
 
         <div class="row justify-content-center">
             <AudioCard :visibility="audioCardVisibility" :audio-url="audioUrl" :thumbnail-url="audioCardThumbnailUrl" :title="audioCardTitle"></AudioCard>
@@ -61,8 +67,11 @@ export default {
             this.audioCardVisibility = false;
             this.alertSpinnerVisibility = false;
             this.audioUrl = "";
+            let convertBoxFieldsSet = document.getElementById("convert_form_fieldset");
 
             let videoConvertForm = new FormData(document.getElementById("convert_form"));
+
+            convertBoxFieldsSet.disabled = true;
 
             axios.post('/v1/video/upload',videoConvertForm).then((response)=>{
 
@@ -89,6 +98,8 @@ export default {
 
                         that.audioCardVisibility = true;
                         that.alertSpinnerVisibility = false;
+                        convertBoxFieldsSet.disabled = false;
+                        convertBoxFieldsSet.getElementsByTagName("input")["0"].value = "";
                         that.alertMessageText = response.payload.original.message;
                     });
 
@@ -99,6 +110,7 @@ export default {
                 this.alertVisibilitySuccess = false;
                 this.buttonSpinnerVisibility = false;
                 this.alertVisibilityError = true;
+                convertBoxFieldsSet.disabled = false;
             })
         }
     }
